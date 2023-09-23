@@ -31,14 +31,6 @@ pipeline{
                 				mvnIntegrationTest()
                 			}
                 		}
-                	}
-                stage('Static Code Analysis with SonarQube'){
-                			when { expression {  params.action == 'create' } }
-                		steps{
-                			script{
-                				statiCodeAnalysis()
-                			}
-                		}
                 	}                
         	}
 	}
