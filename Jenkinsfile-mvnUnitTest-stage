@@ -18,12 +18,5 @@ pipeline{
                 		}
                 	}
                 }
-                stage('Integration Test with Maven'){
-                	steps{
-                		script{
-                			mvnIntegrationTest()
-                		}
-                	}
-                }                
         }
 }
