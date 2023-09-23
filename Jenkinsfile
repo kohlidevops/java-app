@@ -1,17 +1,22 @@
 @Library('my-shared-lib') _
 
 pipeline{
-	agent any
-	stages{
-		stage('Git Checkout'){
-			steps{
-				script{
-					gitCheckout(
-						branch: "main",
-						url: "https://github.com/kohlidevops/java-app.git"
-					)
-				}
-			}
-		}
-	}
+        agent any
+        stages{
+                stage('Git Checkout'){
+                        steps{
+                        gitCheckout(
+                        	branch: "main",
+                            url: "https://github.com/kohlidevops/java-app.git"
+                                        )
+                        }
+                }
+                stage('Unit Test with Maven'){
+                	steps{
+                		script{
+                			mvnTest()
+                		}
+                	}
+                }
+        }
 }
