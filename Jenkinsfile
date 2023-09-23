@@ -2,15 +2,14 @@
 
 pipeline{
 	agent any
-
 	stages{
 		stage('Git Checkout'){
 			steps{
 				script{
-					gitCheckout{
+					gitCheckout(
 						branch: "main",
 						url: "https://github.com/kohlidevops/java-app.git"
-					}
+					)
 				}
 			}
 		}
