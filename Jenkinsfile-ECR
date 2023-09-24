@@ -54,7 +54,7 @@
                                         }
                                 }
                         }
-                stage('Docker Image Build'){
+                stage('Amazon ECR Image Build'){
          				when { expression {  params.action == 'create' } }
             			steps{
                				script{
@@ -62,7 +62,7 @@
                					}
             				}
         			}
-        	stage('Docker Image Scanning'){
+        	stage('Amazon ECR Image Scanning'){
          				when { expression {  params.action == 'create' } }
             			steps{
                				script{
@@ -70,7 +70,7 @@
                					}
             				}
         			}
-        	stage('Docker Image Push'){
+        	stage('Amazon ECR Image Push'){
          				when { expression {  params.action == 'create' } }
             			steps{
                				script{
