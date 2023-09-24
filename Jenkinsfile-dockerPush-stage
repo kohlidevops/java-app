@@ -78,13 +78,5 @@
                					}
             				}
         			}
-		 stage('Docker Image Cleanup'){
-                                        when { expression {  params.action == 'create' } }
-                                steps{
-                                        script{
-                                                dockerImageCleanup()
-                                                }
-                                        }
-                                }
             	   	}
         	}
