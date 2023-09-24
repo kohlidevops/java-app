@@ -1,24 +1,26 @@
-		@Library('my-shared-lib') _
-		pipeline{
-        	agent any
-        		parameters{
-                		choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
-        			}
-        	stages{
-                	stage('Git Checkout'){
-                                       when { expression {  params.action == 'create' } }
+@Library('my-shared-lib') _
+
+pipeline{
+        agent any
+
+        parameters{
+                choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
+        }
+        stages{
+                stage('Git Checkout'){
+                                        when { expression {  params.action == 'create' } }
                         steps{
-                        	gitCheckout(
-                                	branch: "main",
-                            		url: "https://github.com/kohlidevops/java-app.git"
+                        gitCheckout(
+                                branch: "main",
+                            url: "https://github.com/kohlidevops/java-app.git"
                                         )
-                        	}
-                	}
+                        }
+                }
                 stage('Unit Test with Maven'){
-                                     when { expression {  params.action == 'create' } }
+                                        when { expression {  params.action == 'create' } }
                                 steps{
                                         script{
-                                        	mvnTest()
+                                        mvnTest()
                                         }
                                 }
                         }
@@ -55,28 +57,21 @@
                                 }
                         }
                 stage('Docker Image Build'){
-         				when { expression {  params.action == 'create' } }
+					when { expression {  params.action == 'create' } }
             			steps{
                				script{
                    				dockerBuild()
-               					}
-            				}
-        			}
-        	stage('Docker Image Scanning'){
-         				when { expression {  params.action == 'create' } }
-            			steps{
-               				script{
-                				dockerImageScan()
-               					}
-            				}
-        			}
-        	stage('Docker Image Push'){
-         				when { expression {  params.action == 'create' } }
-            			steps{
-               				script{
-                   				dockerImagePush()
-               					}
-            				}
-        			}
-            	   	}
-        	}
+               				}
+            			}
+			}
+               	stage('Docker Image Scanning'){
+        				when { expression {  params.action == 'create' } }
+        			steps{
+        				script{
+        					dockerImageScan()
+        				}
+            			}
+       			}
+            	}
+        }
+
