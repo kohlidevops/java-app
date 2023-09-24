@@ -5,7 +5,7 @@ pipeline{
 
         parameters{
                 choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
-        }
+                  }
         stages{
                 stage('Git Checkout'){
                                         when { expression {  params.action == 'create' } }
@@ -63,15 +63,7 @@ pipeline{
                    				dockerBuild()
                				}
             			}
-			}
-               	stage('Docker Image Scanning'){
-        				when { expression {  params.action == 'create' } }
-        			steps{
-        				script{
-        					dockerImageScan()
-        				}
-            			}
-       			}
+        		}
             	}
-        }
+	}
 
